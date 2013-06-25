@@ -504,7 +504,7 @@ static int esd_recovery_start(struct msm_fb_data_type *mfd)
 	if (mot_panel->panel_enable)
 		mot_panel->panel_enable(mfd);
 	atomic_set(&mot_panel->state, MOT_PANEL_ON);
-	mdp4_dsi_cmd_pipe_commit(0, 1);
+	mdp4_dsi_cmd_pipe_commit(0, 1, NULL);
 	mipi_mot_panel_on(mfd);
 	ret = MOT_ESD_OK;
 end:
