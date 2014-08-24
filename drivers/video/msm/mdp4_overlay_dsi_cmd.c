@@ -1187,9 +1187,6 @@ int mdp4_dsi_cmd_off(struct platform_device *pdev)
 		return ret;
 	}
 
-	/* switch dsi_panel_on flag for cmd panel */
-	mdp4_dsi_panel_off(mfd);
-
 	need_wait = 0;
 	mutex_lock(&vctrl->update_lock);
 	wake_up_interruptible_all(&vctrl->wait_queue);

@@ -517,6 +517,13 @@ static int panel_disable(struct platform_device *pdev)
 	if (ret != 0)
 		goto err;
 
+	/* Send panel off commands at actual panel off function
+	 * to avoid race condition with commit thread powering
+	 * display back up with a trailing overlay commit.
+	 */
+	if (mfd->panel.type == MIPI_CMD_PANEL)
+		mdp4_dsi_panel_off(mfd);
+
 	/*
 	 * The panel_state might be off because with the video_mode
 	 * panel, before phone suspends, it needs to call the panel_off
