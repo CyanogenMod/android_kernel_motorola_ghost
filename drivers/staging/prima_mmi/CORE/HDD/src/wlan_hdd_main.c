@@ -80,6 +80,7 @@
 #include <vos_power.h>
 #include <linux/etherdevice.h>
 #include <linux/firmware.h>
+#include <linux/platform_device.h>
 #ifdef ANI_BUS_TYPE_PLATFORM
 #include <linux/wcnss_wlan.h>
 #endif //ANI_BUS_TYPE_PLATFORM
@@ -6274,6 +6275,29 @@ static int __init hdd_module_init ( void)
 }
 #endif /* #ifdef MODULE */
 
+#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE)
+static int wcnss_ready_probe(struct platform_device *pdev)
+{
+   return hdd_module_init();
+}
+
+static struct platform_driver wcnss_ready = {
+   .driver = {
+      .name = "wcnss_ready",
+      .owner = THIS_MODULE,
+   },
+   .probe = wcnss_ready_probe,
+};
+#endif
+
+static int __init hdd_module_init_first(void)
+{
+#if defined(CONFIG_PRIMA_WLAN) && !defined(CONFIG_PRIMA_WLAN_MODULE)
+   return platform_driver_register(&wcnss_ready);
+#else
+   return hdd_module_init();
+#endif
+}
 
 /**---------------------------------------------------------------------------
 
@@ -6888,7 +6912,7 @@ VOS_STATUS hdd_issta_p2p_clientconnected(hdd_context_t *pHddCtx)
 }
 
 //Register the module init/exit functions
-module_init(hdd_module_init);
+module_init(hdd_module_init_first);
 module_exit(hdd_module_exit);
 
 MODULE_LICENSE("Dual BSD/GPL");
