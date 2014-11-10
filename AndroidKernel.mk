@@ -1,6 +1,7 @@
 #Android makefile to build kernel as a part of Android Build
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 
+INSTALLED_KERNEL_TARGET := $(PRODUCT_OUT)/kernel
 KERNEL_OUT := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ
 KERNEL_CONFIG := $(KERNEL_OUT)/.config
 TARGET_PREBUILT_INT_KERNEL := $(KERNEL_OUT)/arch/arm/boot/zImage
