@@ -645,7 +645,7 @@ static int mot_panel_off_reboot(struct notifier_block *nb,
 	mot_panel = container_of(nb, struct mipi_mot_panel, reboot_notifier);
 	mfd = mot_panel->mfd;
 
-	if (mfd->panel_power_on) {
+	if (!mdp_fb_is_power_off(mfd)) {
 
 		mutex_lock(&mfd->dma->ov_mutex);
 

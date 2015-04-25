@@ -301,7 +301,7 @@ static struct dsi_cmd_desc mot_display_off_cmds[] = {
 static void enable_acl(struct msm_fb_data_type *mfd)
 {
 	/* Write the value only if the display is enable and powerd on */
-	if ((mfd->op_enable != 0) && (mfd->panel_power_on != 0)) {
+	if ((mfd->op_enable != 0) && (!mdp_fb_is_power_off(mfd))) {
 		mutex_lock(&mfd->dma->ov_mutex);
 		mipi_set_tx_power_mode(0);
 		ACL_enable_disable_settings[1] = mot_panel->acl_enabled;
@@ -429,7 +429,7 @@ static void panel_set_backlight(struct msm_fb_data_type *mfd)
 
 	pr_debug("%s(%d)\n", __func__, (s32)mfd->bl_level);
 
-	if (!mfd->panel_power_on)
+	if (mdp_fb_is_power_off(mfd))
 		return;
 
 	if (bl_level_old == mfd->bl_level)

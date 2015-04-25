@@ -253,7 +253,7 @@ static u8 backlight_curve_mapping[FB_BACKLIGHT_LEVELS] = {
 static void enable_acl(struct msm_fb_data_type *mfd)
 {
 	/* Write the value only if the display is enable and powerd on */
-	if ((mfd->op_enable != 0) && (mfd->panel_power_on != 0)) {
+	if ((mfd->op_enable != 0) && (!mdp_fb_is_power_off(mfd))) {
 		mipi_set_tx_power_mode(0);
 		mipi_mot_tx_cmds(&acl_enable_disable[0],
 					ARRAY_SIZE(acl_enable_disable));
@@ -368,7 +368,7 @@ static void panel_set_backlight(struct msm_fb_data_type *mfd)
 
 	pr_debug("%s(bl_level=%d)\n", __func__, (s32)mfd->bl_level);
 
-	if (!mfd->panel_power_on)
+	if (mdp_fb_is_power_off(mfd))
 		return;
 
 	if (bl_level_old == mfd->bl_level)
