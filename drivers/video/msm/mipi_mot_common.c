@@ -484,7 +484,7 @@ static int esd_recovery_start(struct msm_fb_data_type *mfd)
 
 	pdata = (struct msm_fb_panel_data *)mfd->pdev->dev.platform_data;
 
-	if (!mfd->panel_power_on) { /* panel is off, do nothing */
+	if (mdp_fb_is_power_off(mfd)) { /* panel is off, do nothing */
 		ret = MOT_ESD_PANEL_OFF;
 		goto end;
 	}
@@ -590,7 +590,7 @@ end:
 void mipi_mot_set_tear(struct msm_fb_data_type *mfd, int on)
 {
 	mutex_lock(&mfd->dma->ov_mutex);
-	if ((mfd->op_enable != 0) && (mfd->panel_power_on != 0)) {
+	if ((mfd->op_enable != 0) && (!mdp_fb_is_power_off(mfd))) {
 		pr_debug("%s: setting tear, on = %d\n", __func__, on);
 		mipi_set_tx_power_mode(0);
 		if (on)

@@ -1143,7 +1143,7 @@ int mdp_histogram_stop(struct fb_info *info, uint32_t block)
 
 	mgmt->mdp_is_hist_start = FALSE;
 
-	if (!mfd->panel_power_on) {
+	if (mdp_fb_is_power_off(mfd)) {
 		if (mgmt->hist != NULL) {
 			mgmt->hist = NULL;
 			complete(&mgmt->mdp_hist_comp);
