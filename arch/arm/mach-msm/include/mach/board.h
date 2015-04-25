@@ -456,6 +456,7 @@ struct mipi_dsi_platform_data {
 	int (*panel_power_save)(int on);
 	int (*panel_power_en)(int on);
 	int (*panel_power_force_off)(int on);
+	int (*panel_lp_en)(int on);
 	int (*dsi_client_reset)(void);
 	int (*get_lane_config)(void);
 	char (*splash_is_enabled)(void);

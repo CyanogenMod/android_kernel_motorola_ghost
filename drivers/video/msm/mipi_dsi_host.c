@@ -2162,7 +2162,7 @@ int mipi_reg_write(struct msm_fb_data_type *mfd, __u16 size, __u8 *buf,
 	cmdreq.rlen = 0;
 	cmdreq.cb = NULL;
 
-	if (!mfd->panel_power_on) {
+	if (mdp_fb_is_power_off(mfd)) {
 		pr_err("%s panel is off. Fail to write.\n", __func__);
 		return -EPERM;
 	}
@@ -2221,7 +2221,7 @@ int mipi_reg_read(struct msm_fb_data_type *mfd, __u16 address,
 	cmdreq.cb = NULL;
 	cmdreq.rdata = NULL;
 
-	if (!mfd->panel_power_on) {
+	if (mdp_fb_is_power_off(mfd)) {
 		pr_err("%s panel is off. Fail to read.\n", __func__);
 		return -EPERM;
 	}
