@@ -872,6 +872,32 @@ config MACH_MSM8960_MMI
 	help
 	  Support for Motorola Mobility MSM8960 devices.
 
+if MACH_MSM8960_MMI
+choice
+    prompt "Motorola Mobility MSM8960 target device"
+    default MACH_MSM8960_MMI_GENERIC
+
+config MACH_MSM8960_MMI_GENERIC
+	depends on MACH_MSM8960_MMI
+	bool "MSM8960 MMI generic device"
+	help
+	  Support for Motorola Mobility MSM8960 generic device.
+
+config MACH_MSM8960_MMI_GHOST
+	depends on MACH_MSM8960_MMI
+	bool "MSM8960 MMI GHOST"
+	help
+	  Support for Motorola Mobility MSM8960 Moto X.
+
+config MACH_MSM8960_MMI_OBAKE
+	depends on MACH_MSM8960_MMI
+	bool "MSM8960 MMI OBAKE"
+	help
+	  Support for Motorola Mobility MSM8960 Droid Ultra.
+
+endchoice
+endif
+
 config MSM_USE_TSIF1
 	depends on ARCH_MSM8X60
 	bool "MSM8x60 use TSIF1"

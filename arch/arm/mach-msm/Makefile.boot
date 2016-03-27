@@ -59,9 +59,7 @@ endif
 params_phys-$(CONFIG_ARCH_FSM9XXX)	:= 0x10000100
 initrd_phys-$(CONFIG_ARCH_FSM9XXX)	:= 0x12000000
 
-dtb-$(CONFIG_MACH_MSM8960_MMI) += mmi-8960pro.dtb
-dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-sasquatch-p1.dtb
-dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-sasquatch-p2.dtb
+ifeq ($(CONFIG_MACH_MSM8960_MMI_GHOST),y)
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ghost-p0.dtb
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ghost-p1.dtb
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ghost-p1b4.dtb
@@ -71,6 +69,7 @@ dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ghost-p3.dtb
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ghost-pc.dtb
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ghost-pd.dtb
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ghost-pe.dtb
+else ifeq ($(CONFIG_MACH_MSM8960_MMI_OBAKE),y)
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ultra-p0.dtb
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ultra-p1.dtb
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ultra-p2.dtb
@@ -84,3 +83,8 @@ dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ultra-maxx-p0.dtb
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ultra-maxx-p1.dtb
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ultra-maxx-p2.dtb
 dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-ultra-maxx-p3.dtb
+else ifeq ($(CONFIG_MACH_MSM8960_MMI_GENERIC),y)
+dtb-$(CONFIG_MACH_MSM8960_MMI) += mmi-8960pro.dtb
+dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-sasquatch-p1.dtb
+dtb-$(CONFIG_MACH_MSM8960_MMI) += msm8960ab-sasquatch-p2.dtb
+endif
